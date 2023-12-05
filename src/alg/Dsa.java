@@ -22,24 +22,25 @@ public static void main(String[] args){
 
 
 
-Graph graph=new Graph(5,Graph.UN_DIRECTED);
-graph.addEdge("0", "1", 5);
-//graph.addEdge("0", "2", 3);
-graph.addEdge("1", "2", 10);
-graph.addEdge("2", "3", 1);
-graph.addEdge("2", "4", 2);
-graph.addEdge("3", "4", 3);
-Bridge solver=new Bridge();
-solver.solve(graph);
-for(Edge e:solver.getBridges())
-    System.out.println("src: "+graph.getNode(e.src)+" des: "+graph.getNode(e.des));
-  System.out.println(solver.getArticulationPoint());
-  
-   System.out.println(Arrays.toString(solver.ids));
-  System.out.println(Arrays.toString(solver.low));
+Graph graph=new Graph(8,Graph.DIRECTED);
+graph.addEdge("a", "b", 5);
+graph.addEdge("a", "c", 3);
+graph.addEdge("b", "a", 10);
+graph.addEdge("b", "d", 1);
+graph.addEdge("c", "d", 2);
+graph.addEdge("d", "e", 3);
+graph.addEdge("d", "f", 5);
+graph.addEdge("e", "c", 3);
+graph.addEdge("e", "f", 10);
+graph.addEdge("e", "g", 1);
+graph.addEdge("f", "i", 2);
+graph.addEdge("g", "f", 3);
+graph.addEdge("i", "g", 3);
 
-
-
+Tarjans solver=new Tarjans(); 
+int[]low=solver.findSccs(graph);
+for(int i=0;i<graph.size();i++)
+    System.out.println("node "+graph.getNode(i) +" component: "+low[i]);
 
 
 
@@ -49,14 +50,6 @@ for(Edge e:solver.getBridges())
  
     
   
-  
-
-  
-  
-  
-  
-  
-    
     
  
    
