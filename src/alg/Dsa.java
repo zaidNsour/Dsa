@@ -41,6 +41,7 @@ Tarjans solver=new Tarjans();
 int[]low=solver.findSccs(graph);
 for(int i=0;i<graph.size();i++)
     System.out.println("node "+graph.getNode(i) +" component: "+low[i]);
+  System.out.println(solver.getSccsCount());
 
 
 
