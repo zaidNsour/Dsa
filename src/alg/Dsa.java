@@ -15,13 +15,38 @@ public class Dsa{
     
    
 public static void main(String[] args){
-  int[]n1={2,2,2,2};
-  int[]n2={2,4,4,2};
+  FlowGraph graph=new FlowGraph(11);
+  int s=9,t=10;
+  graph.addEdge(s, 0, 5);
+  graph.addEdge(s, 1, 10);
+  graph.addEdge(s, 2, 5);
+  graph.addEdge(0, 3, 10);
+  graph.addEdge(1, 0, 15);
+  graph.addEdge(1, 4, 20);
+  graph.addEdge(2, 5, 5);
+  graph.addEdge(3, 6, 10);
+  graph.addEdge(3, 4, 25);
+  graph.addEdge(4, 2, 5);
+  graph.addEdge(4, 7, 10);
+  graph.addEdge(5, 7, 5);
+  graph.addEdge(6, t, 5);
+  graph.addEdge(7, 3, 15);
+  graph.addEdge(7, 8, 5);
+  graph.addEdge(7, t, 15);
+  graph.addEdge(8, t, 5);
   
-  ElemantaryMathProblem solver=new ElemantaryMathProblem(n1,n2);
-  System.out.println(solver.solve());
-  System.out.println(solver.isUniqueAnswers());
   
+  
+  EdmondsKarp solver=new EdmondsKarp(graph);
+  System.out.println(solver.getMaxFlow());
+  solver.graph.printGraph();
+  
+  
+  /*
+  FordFulkerson solver2=new FordFulkerson();
+  solver2.solve(graph);
+  solver2.graph.printGraph();
+  */
   
   }
 
