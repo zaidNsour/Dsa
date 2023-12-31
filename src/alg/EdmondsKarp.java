@@ -4,6 +4,7 @@ package alg;
 import Ds.FlowGraph;
 import Ds.FlowGraph.Edge;
 
+
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -17,6 +18,8 @@ public class EdmondsKarp {
   Edge[]prevEdges;
   double[]bottleNeck;
   Queue<Integer>queue;
+  boolean usedCapacityScaling=false;
+  int delta=1;
   
   EdmondsKarp(FlowGraph graph){
     this.graph=graph;
@@ -27,13 +30,29 @@ public class EdmondsKarp {
     prevEdges=new Edge[n];
     bottleNeck=new double[n];
     queue=new LinkedList<>();
+    
+    }
+  
+  EdmondsKarp(FlowGraph graph,boolean usedCapacityScaling){
+    this(graph);
+    this.usedCapacityScaling=usedCapacityScaling;  
     }
   
   public double getMaxFlow(){
-    for(double f=bfs();f!=0;f=bfs()){
-      Arrays.fill(visited,false);
-      graph.addFlow(f);
+    if(usedCapacityScaling)
+      for(double f=0,delta=graph.getDelta();delta>0;delta/=2){
+      do{
+        f=bfs();
+        graph.addFlow(f);
+        Arrays.fill(visited,false);
+        }while(f!=0);
       }
+    else
+      for(double f=bfs();f!=0;f=bfs()){
+        Arrays.fill(visited,false);
+        graph.addFlow(f);
+        }
+    
     return graph.getFlow();
     }
   
@@ -45,14 +64,17 @@ public class EdmondsKarp {
     while( !queue.isEmpty() ){
       int at=queue.poll();
       if(at==t){
-        for(Edge e=prevEdges[t];e!=null;e=prevEdges[e.src])
+        for(Edge e=prevEdges[t];e!=null;e=prevEdges[e.src]){
+          
           e.addEdgeFlow(bottleNeck[t]);
+        }
         return bottleNeck[t];
         } 
       for(Edge e:graph.getEdges(at)){
         int to=e.des;
         double resCapacity=e.residualCapacity();
-        if(resCapacity>0 && !visited[to]){
+          
+        if(resCapacity>=delta && !visited[to]){
           visited[to]=true;
           prevEdges[to]=e;
           bottleNeck[to]=Math.min(bottleNeck[at],resCapacity);
@@ -62,9 +84,5 @@ public class EdmondsKarp {
       }
     return 0;
     }
-  
-
-   
-   
   
 }

@@ -5,6 +5,7 @@
  */
 package Ds;
 
+import static alg.BitManipulation.highestPowerof2;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,14 +14,16 @@ import java.util.List;
  * @author DELL
  */
 public class FlowGraph {
-  List<Edge>adjList[];
-  int size,edgeCount;
-  double flow;
+  public List<Edge>adjList[];
+ private int size,edgeCount;
+  private double flow;
+  private double delta;
   
   public FlowGraph(int size){
     this.size=size;
     edgeCount=0;
     flow=0;
+    delta=Double.NEGATIVE_INFINITY;
     adjList=new ArrayList[size];
     for(int i=0;i<size;i++)
       adjList[i]=new ArrayList<>();
@@ -64,6 +67,11 @@ public class FlowGraph {
      this.flow += flow;
     }
   
+  public int getDelta(){
+    delta=highestPowerof2((int)delta);
+    return (int)delta;
+    }
+  
   public void printGraph(){
     System.out.println("flow="+flow);
     for(int i=0;i<size;i++)
@@ -81,6 +89,7 @@ public class FlowGraph {
     edge.reverse=resEdge;
     resEdge.reverse=edge;
     edgeCount++;
+    delta=Math.max(delta,capacity);
  
     }
   
