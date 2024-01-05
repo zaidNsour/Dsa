@@ -58,13 +58,14 @@ public static void main(String[] args){
   graph2.addEdge(8, t, 5);
   
   
-
+/*
   EdmondsKarp solver=new EdmondsKarp(graph,true);
   solver.getMaxFlow();
   solver.graph.printGraph();
   System.out.println("");
+*/
   
- EdmondsKarp solver2=new EdmondsKarp(graph2);
+ Dinics solver2=new Dinics(graph);
  solver2.getMaxFlow();
   solver2.graph.printGraph();
  

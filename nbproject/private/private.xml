@@ -22,6 +22,7 @@
         <group>
             <file>file:/D:/javaProject/Dsa/src/Ds/FlowGraph.java</file>
             <file>file:/D:/javaProject/Dsa/src/alg/FordFulkerson.java</file>
+            <file>file:/D:/javaProject/Dsa/src/alg/Dinics.java</file>
             <file>file:/D:/javaProject/Dsa/src/alg/EdmondsKarp.java</file>
             <file>file:/D:/javaProject/Dsa/src/alg/Dsa.java</file>
         </group>
